@@ -14,3 +14,5 @@ target
 .idea
 .recommenders
 *.classpath
+.project
+.settings
