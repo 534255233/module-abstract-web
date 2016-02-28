@@ -1,5 +1,6 @@
 package com.zlp.aop;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.inject.Named;
@@ -17,6 +18,12 @@ public class LogAop {
 	
 	private static Logger log = LoggerFactory.getLogger(LogAop.class);
 	
+	/**
+	 * 第一个*表示：所有的返回类型
+	 * 第二个*表示：所有类
+	 * 第三个*表示：所有方法名
+	 * @param joinPoint
+	 */
 //	@Before("execution(* com.zlp.service.LoginService.login(..))")
 	@Before("execution(* com.zlp.controller.*.*(..))")
 	public void logBefore(JoinPoint joinPoint) {
@@ -39,7 +46,9 @@ public class LogAop {
 			sb.append(e.toString());
 			sb.append("\n");
 		}
-		log.severe(joinPoint.getSignature() + " throw an Exception : " + error + "\n" + sb.toString());
+//		log.severe(joinPoint.getSignature() + " throw an Exception : " + error + "\n" + sb.toString());
+		Object[] arr = {joinPoint.getSignature(), sb.toString()};
+		log.log(Level.SEVERE, "{0} throw an Exception : {1}", arr);
 	}
 
 }

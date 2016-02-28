@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zlp.entity.Range;
 import com.zlp.entity.vo.ResultMessageVO;
+import com.zlp.entity.vo.ResultMessageVO.CodeEnum;
 import com.zlp.exception.AddErrorException;
 import com.zlp.exception.DeleteErrorException;
 import com.zlp.exception.FileNoExistException;
@@ -100,56 +101,53 @@ public abstract class BaseController {
 	@ExceptionHandler(NoAddPermException.class)
 	@ResponseBody
 	protected ResultMessageVO handleNoAddPermException(NoAddPermException ex) {
-		ResultMessageVO result = new ResultMessageVO(ResultMessageVO.CODE_EXCEPTION, ex.getMessage());
-		return result;
+		return exceptionMessage(ex);
 	}
 	@ExceptionHandler(NoUpdatePermException.class)
 	@ResponseBody
 	protected ResultMessageVO handleNoUpdatePermException(NoUpdatePermException ex) {
-		ResultMessageVO result = new ResultMessageVO(ResultMessageVO.CODE_EXCEPTION, ex.getMessage());
-		return result;
+		return exceptionMessage(ex);
 	}
 	@ExceptionHandler(NoDeletePermException.class)
 	@ResponseBody
 	protected ResultMessageVO handleNoDeletePermException(NoDeletePermException ex) {
-		ResultMessageVO result = new ResultMessageVO(ResultMessageVO.CODE_EXCEPTION, ex.getMessage());
-		return result;
+		return exceptionMessage(ex);
 	}
 	
 	/**CUD异常拦截*/
 	@ExceptionHandler(AddErrorException.class)
 	@ResponseBody
 	protected ResultMessageVO handleAddErrorException(AddErrorException ex) {
-		ResultMessageVO result = new ResultMessageVO(ResultMessageVO.CODE_EXCEPTION, ex.getMessage());
-		return result;
+		return exceptionMessage(ex);
 	}
 	@ExceptionHandler(UpdateErrorException.class)
 	@ResponseBody
 	protected ResultMessageVO handleUpdateErrorException(UpdateErrorException ex) {
-		ResultMessageVO result = new ResultMessageVO(ResultMessageVO.CODE_EXCEPTION, ex.getMessage());
-		return result;
+		return exceptionMessage(ex);
 	}
 	@ExceptionHandler(DeleteErrorException.class)
 	@ResponseBody
 	protected ResultMessageVO handleDeleteErrorException(DeleteErrorException ex) {
-		ResultMessageVO result = new ResultMessageVO(ResultMessageVO.CODE_EXCEPTION, ex.getMessage());
-		return result;
+		return exceptionMessage(ex);
 	}
 	
 	/**空指针异常拦截*/
 	@ExceptionHandler(NullPointerException.class)
 	@ResponseBody
 	protected ResultMessageVO handleException(NullPointerException ex) {
-		ResultMessageVO result = new ResultMessageVO(ResultMessageVO.CODE_EXCEPTION, ex.getMessage());
-		return result;
+		return exceptionMessage(ex);
 	}
 	
 	/**不可知异常拦截*/
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
 	protected ResultMessageVO handleException(Exception ex) {
-		ResultMessageVO result = new ResultMessageVO(ResultMessageVO.CODE_EXCEPTION, ex.getMessage());
-		return result;
+		return exceptionMessage(ex);
+	}
+	
+	private ResultMessageVO exceptionMessage(Exception ex) {
+		CodeEnum e = ResultMessageVO.CodeEnum.EXCEPTION;
+		return new ResultMessageVO(e.getValue(), e.getDes(), ex.getMessage());
 	}
 		
 }
